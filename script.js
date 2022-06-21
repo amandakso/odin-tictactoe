@@ -27,8 +27,9 @@ const gameBoard = (() => {
             }
         };
 
-        const markSpace = (spot) => {
-            console.log(spot);
+        const markSpace = (item, symbol) => {
+            console.log(symbol);
+            item.innerText = symbol;
         }
 
         const labelSpace = (item, num) => {
@@ -55,7 +56,16 @@ const gameBoard = (() => {
                     let itemFree = document.createElement("list");
                     labelSpace(itemFree, i);
                     itemFree.addEventListener("click", () => {
-                        markSpace(i);
+                        let currentTurn = displayController.checkTurn()
+                        if (currentTurn == player1.getNumber()) {
+                            symbol = player1.getSymbol();
+                            markSpace(itemFree, symbol);
+                        } else if (currentTurn == player2.getNumber()) {
+                            symbol = player2.getSymbol();
+                            markSpace(itemFree, symbol);
+                        } else {
+                            console.log("error5");
+                        }
                     })
                     list.append(itemFree);
                     break;
@@ -73,11 +83,47 @@ const gameBoard = (() => {
 
 gameBoard.displayBoard();
 
-const Player = (name, symbol) => {
+const Player = (name, symbol, number) => {
     const getName = () => name;
     const getSymbol = () => symbol;
+    const getNumber = () => {
+        if (number == 1) {
+            return 1;
+        }
+        else if (number == 2) {
+
+        } else {
+            console.log("error3");
+        };
+    };
+    return {getName, getSymbol, getNumber};
 }
 
 const displayController = (() => {
+    const initialTurn = 1;
+    let playerTurn = initialTurn;
+    const startGame = () => {
+        return initialTurn;
+    }
+    const checkTurn = () => {
+        if (playerTurn == 1) {
+            return 1;
+        } else if (playerTurn == 2) {
+            return 2;
+        } else {
+            console.log("error4");
+        }
+    }
+
+    return {
+        startGame,
+        checkTurn,
+    }
 
 })();
+
+displayController.startGame();
+const player1 = Player('name1', "X", 1)
+const player2 = Player('name2', "O", 2)
+
+
