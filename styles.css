@@ -1,0 +1,11 @@
+#spaces {
+    display: grid;
+    grid-template: 1fr 1fr 1fr / 1fr 1fr 1fr;
+}
+
+.space {
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    padding: 30px;
+}
