@@ -5,23 +5,23 @@ const gameBoard = (() => {
         const idLocation = (x) => {
             switch(x) {
                 case 0:
-                    return "tl";
+                    return "top one";
                 case 1:
-                    return "tm";
+                    return "top two";
                 case 2:
-                    return "tr";
+                    return "top three";
                 case 3:
-                    return "ml";
+                    return "middle one";
                 case 4:
-                    return "mm";
+                    return "middle two";
                 case 5:
-                    return "mr";
+                    return "middle three";
                 case 6:
-                    return "bl";    
+                    return "bottom one";    
                 case 7:
-                    return "bm";
+                    return "bottom two";
                 case 8:
-                    return "br";
+                    return "bottom three";
                 default:
                     console.log("error");
             }
