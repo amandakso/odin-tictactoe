@@ -31,29 +31,29 @@ const gameBoard = (() => {
             console.log(spot);
         }
 
+        const labelSpace = (item, num) => {
+            item.classList.add(idLocation(num));
+            item.classList.add("space");
+            item.classList.add("s" + num);
+        }
+
         for (let i = 0; i < board.length; i++) {
             switch (board[i]) {
                 case "X":
                     let itemX = document.createElement("list");
                     itemX.innerText = "X";
-                    itemX.classList.add(idLocation(i));
-                    itemX.classList.add("space");
-                    itemX.classList.add("s" + i);
+                    labelSpace(itemX, i);
                     list.append(itemX);
                     break;
                 case "O":
                     let itemO = document.createElement("list");
                     itemO.innerText = "0";
-                    itemO.classList.add(idLocation(i));
-                    itemO.classList.add("space");
-                    itemO.classList.add("s" + i);
+                    labelSpace(itemO, i);
                     list.append(itemO);
                     break;
                 case "free":
                     let itemFree = document.createElement("list");
-                    itemFree.classList.add(idLocation(i));
-                    itemFree.classList.add("space");
-                    itemFree.classList.add("s" + i);
+                    labelSpace(itemFree, i);
                     itemFree.addEventListener("click", () => {
                         markSpace(i);
                     })
