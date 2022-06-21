@@ -1,5 +1,5 @@
 const gameBoard = (() => {
-    const board = ["X", "X", "X", "O", "O", "O", "X", "O", "X"];
+    const board = ["free", "free", "free", "free", "free", "free", "free", "free", "free"];
     const displayBoard = () => {
         const list = document.getElementById("spaces");
         const idLocation = (x) => {
@@ -26,10 +26,15 @@ const gameBoard = (() => {
                     console.log("error");
             }
         };
+
+        const markSpace = (spot) => {
+            console.log(spot);
+        }
+
         for (let i = 0; i < board.length; i++) {
             switch (board[i]) {
                 case "X":
-                    let itemX = document.createElement("list")
+                    let itemX = document.createElement("list");
                     itemX.innerText = "X";
                     itemX.classList.add(idLocation(i));
                     itemX.classList.add("space");
@@ -37,12 +42,22 @@ const gameBoard = (() => {
                     list.append(itemX);
                     break;
                 case "O":
-                    let itemO = document.createElement("list")
+                    let itemO = document.createElement("list");
                     itemO.innerText = "0";
                     itemO.classList.add(idLocation(i));
                     itemO.classList.add("space");
                     itemO.classList.add("s" + i);
                     list.append(itemO);
+                    break;
+                case "free":
+                    let itemFree = document.createElement("list");
+                    itemFree.classList.add(idLocation(i));
+                    itemFree.classList.add("space");
+                    itemFree.classList.add("s" + i);
+                    itemFree.addEventListener("click", () => {
+                        markSpace(i);
+                    })
+                    list.append(itemFree);
                     break;
                 default:
                     console.log("error2");
