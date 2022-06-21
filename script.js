@@ -30,6 +30,7 @@ const gameBoard = (() => {
         const markSpace = (item, symbol) => {
             console.log(symbol);
             item.innerText = symbol;
+            displayController.changeTurn();
         }
 
         const labelSpace = (item, num) => {
@@ -56,7 +57,7 @@ const gameBoard = (() => {
                     let itemFree = document.createElement("list");
                     labelSpace(itemFree, i);
                     itemFree.addEventListener("click", () => {
-                        let currentTurn = displayController.checkTurn()
+                        let currentTurn = displayController.checkTurn();
                         if (currentTurn == player1.getNumber()) {
                             symbol = player1.getSymbol();
                             markSpace(itemFree, symbol);
@@ -91,7 +92,7 @@ const Player = (name, symbol, number) => {
             return 1;
         }
         else if (number == 2) {
-
+            return 2;
         } else {
             console.log("error3");
         };
@@ -114,16 +115,24 @@ const displayController = (() => {
             console.log("error4");
         }
     }
+    const changeTurn = () => {
+        if (playerTurn == 1) {
+            playerTurn = 2;
+        } else {
+            playerTurn = 1;
+        }
+        console.log(playerTurn);
+    }
 
     return {
         startGame,
         checkTurn,
+        changeTurn,
     }
 
 })();
 
 displayController.startGame();
-const player1 = Player('name1', "X", 1)
-const player2 = Player('name2', "O", 2)
-
+const player1 = Player("name1", "X", 1);
+const player2 = Player("name2", "O", 2);
 
