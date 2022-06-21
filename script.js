@@ -5,23 +5,23 @@ const gameBoard = (() => {
         const idLocation = (x) => {
             switch(x) {
                 case 0:
-                    return "top-one";
+                    return "top";
                 case 1:
-                    return "top-two";
+                    return "top";
                 case 2:
-                    return "top-three";
+                    return "top";
                 case 3:
-                    return "middle-one";
+                    return "middle";
                 case 4:
-                    return "middle-two";
+                    return "middle";
                 case 5:
-                    return "middle-three";
+                    return "middle";
                 case 6:
-                    return "bottom-one";    
+                    return "bottom";    
                 case 7:
-                    return "bottom-two";
+                    return "bottom";
                 case 8:
-                    return "bottom-three";
+                    return "bottom";
                 default:
                     console.log("error");
             }
@@ -33,6 +33,7 @@ const gameBoard = (() => {
                     itemX.innerText = "X";
                     itemX.classList.add(idLocation(i));
                     itemX.classList.add("space");
+                    itemX.classList.add("s" + i);
                     list.append(itemX);
                     break;
                 case "O":
@@ -40,6 +41,7 @@ const gameBoard = (() => {
                     itemO.innerText = "0";
                     itemO.classList.add(idLocation(i));
                     itemO.classList.add("space");
+                    itemO.classList.add("s" + i);
                     list.append(itemO);
                     break;
                 default:
