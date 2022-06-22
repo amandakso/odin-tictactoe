@@ -115,11 +115,15 @@ const player1 = Player("name1", "X", 1);
 const player2 = Player("name2", "O", 2);
 
 const displayController = (() => {
+    let freeSpaces = 9;
     const initialTurn = 1;
     let playerTurn = initialTurn;
+
+
     const startGame = () => {
         return initialTurn;
-    }
+    };
+
     const checkTurn = () => {
         if (playerTurn == 1) {
             return 1;
@@ -128,28 +132,42 @@ const displayController = (() => {
         } else {
             console.log("error4");
         }
-    }
+    };
     const changeTurn = () => {
         if (playerTurn == 1) {
             playerTurn = 2;
         } else {
             playerTurn = 1;
         }
-    }
+    };
+
+    const takeSpace = () => {
+        freeSpaces -= 1;
+    };
+
 
     const completeTurn = () => {
         let currentPlayer;
         if (playerTurn == player1.getNumber()) {
             currentPlayer = player1.getName();
             checkWin(player1.getSymbol(), currentPlayer);
+            checkDraw();
         } else if (playerTurn == player2.getNumber()) {
             currentPlayer = player2.getName();
             checkWin(player2.getSymbol(), currentPlayer);
+            checkDraw();
         } else {
             console.log("error6");
         };
+        takeSpace();
         changeTurn();
     }
+
+    const checkDraw = () => {
+        if (freeSpaces < 2) {
+            console.log("it's a draw");
+        }
+    };
 
     const checkWin = (symbol, name) => {
         let s0 = document.querySelector(".s0").classList.contains(symbol);
@@ -165,7 +183,7 @@ const displayController = (() => {
         // check for wins
         if ((s0 && s1 && s2) || (s3 && s4 && s5) || (s6 && s7 && s8) || (s0 && s3 && s6) || (s1 && s4 && s7) || (s2 && s5 && s8) || (s0 && s4 && s8) || (s2 && s4 && s6)) {
             console.log("winner: " + name);
-        }
+        };
         /*
         win possibilities
         s0 s1 s2
@@ -177,7 +195,7 @@ const displayController = (() => {
         s0 s4 s8
         s2 s4 s6
         */
-    }
+    };
 
     return {
         startGame,
