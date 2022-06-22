@@ -168,7 +168,7 @@ const displayController = (() => {
                 player2.name = newName;
                 console.log(player2.name);
             } else {
-                console.log("hi");
+                console.log("errorname");
             }
             
         };
@@ -190,6 +190,11 @@ const displayController = (() => {
     };
 
     const startGame = () => {
+        const btn = document.getElementById("start");
+        btn.addEventListener("click", () => {
+            gameBoard.clearBoard();
+            gameBoard.renderBoard();
+        })
         return initialTurn;
     };
 
@@ -309,7 +314,7 @@ const displayController = (() => {
 
 })();
 
-gameBoard.renderBoard();
+gameBoard.displayBoard();
 displayController.startGame();
 displayController.setUpGame();
 
