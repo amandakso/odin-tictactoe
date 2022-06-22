@@ -68,12 +68,9 @@ const gameBoard = (() => {
         const labelSpace = (item, num) => {
             item.classList.add(idLocation(num));
             item.classList.add("space");
-            // item.classList.add("s" + num);
             item.id = ("s" + num);
         }
-
-        
-        
+      
         for (let i = 0; i < board.length; i++) {
             switch (board[i]) {
                 case "X":
@@ -90,22 +87,7 @@ const gameBoard = (() => {
                         break;
                         case "free":
                             let itemFree = document.createElement("list");
-                            labelSpace(itemFree, i);
-                            /*
-                            itemFree.addEventListener("click", () => {
-                                let currentTurn = displayController.checkTurn();
-                                if (currentTurn == player1.getNumber()) {
-                                    symbol = player1.getSymbol();
-                                    checkSpace(itemFree, symbol);
-                                } else if (currentTurn == player2.getNumber()) {
-                                    symbol = player2.getSymbol();
-                                    checkSpace(itemFree, symbol);
-                                } else {
-                                    console.log("error5");
-                                };
-                            });
-                            */
-                            
+                            labelSpace(itemFree, i);                         
                             list.append(itemFree);
                     break;
                 default:
@@ -207,8 +189,6 @@ const displayController = (() => {
 
     };
 
-
-
     const startGame = () => {
         return initialTurn;
     };
@@ -281,28 +261,37 @@ const displayController = (() => {
         } else {
             gameCounter +=0;
         };
-        /*
-        win possibilities
-        s0 s1 s2
-        s3 s4 s5
-        s6 s7 s8
-        s0 s3 s6
-        s1 s4 s7
-        s2 s5 s8
-        s0 s4 s8
-        s2 s4 s6
-        */
+    };
+
+    const displayMessage = (x) => {
+        message = document.getElementById("message");
+        switch (x) {
+            case 1:
+                message.innerText = player1.name + " Wins!";
+                break;
+            case 2:
+                message.innerText = player2.name + " Wins!";
+                break;
+            case "draw":
+                message.innerText = "It's a Draw!";
+                break;
+            default:
+            console.log("errormessage");
+        };
     };
 
     const endGame = () => {
         if (gameCounter >= 5) {
             //end game
             console.log("winner, end game");
+            let num = checkTurn();
+            displayMessage(num);
             gameBoard.clearBoard();
             gameBoard.displayBoard();
             
         } else if (gameCounter !=0) {
             console.log("draw, end game");
+            displayMessage("draw");
             gameBoard.clearBoard();
             gameBoard.displayBoard();
         

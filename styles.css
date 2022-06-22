@@ -1,11 +1,11 @@
 .container {
     height: 100vh;
     display: grid;
-    grid-template: 1fr 3fr 1fr 1fr / 1fr 3fr 1fr;
+    grid-template: 1fr 1fr 6fr 1fr / 1fr 3fr 1fr;
     grid-template-areas: 
     "header header header"
-    "player1 gameboard player2"
     " . message ."
+    "player1 gameboard player2"
     "footer footer footer";
 }
 
