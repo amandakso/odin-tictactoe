@@ -3,28 +3,15 @@ const gameBoard = (() => {
     const displayBoard = () => {
         const list = document.getElementById("spaces");
         const idLocation = (x) => {
-            switch(x) {
-                case 0:
-                    return "top";
-                case 1:
-                    return "top";
-                case 2:
-                    return "top";
-                case 3:
-                    return "middle";
-                case 4:
-                    return "middle";
-                case 5:
-                    return "middle";
-                case 6:
-                    return "bottom";    
-                case 7:
-                    return "bottom";
-                case 8:
-                    return "bottom";
-                default:
-                    console.log("error");
-            }
+            if (0 <= x && x <= 2) {
+                return "top";
+            } else if ( 3 <= x && x <= 5) {
+                return "middle";
+            } else if ( 6 <= x && x <= 8) {
+                return "bottom";
+            } else  {
+                console.log("error");
+            };
         };
 
         const markSpace = (item, symbol) => {
