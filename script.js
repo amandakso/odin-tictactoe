@@ -28,9 +28,17 @@ const gameBoard = (() => {
         };
 
         const markSpace = (item, symbol) => {
-            console.log(symbol);
             item.innerText = symbol;
+            item.classList.add(symbol);
+            item.classList.add("marked");
             displayController.changeTurn();
+        }
+        const checkSpace = (item, symbol) => {
+            if (!item.classList.contains("marked")) {
+                markSpace(item, symbol);
+            } else {
+                alert("Space already taken. Pick an available space!");
+            }
         }
 
         const labelSpace = (item, num) => {
@@ -38,7 +46,8 @@ const gameBoard = (() => {
             item.classList.add("space");
             item.classList.add("s" + num);
         }
-
+        
+        
         for (let i = 0; i < board.length; i++) {
             switch (board[i]) {
                 case "X":
@@ -47,28 +56,29 @@ const gameBoard = (() => {
                     labelSpace(itemX, i);
                     list.append(itemX);
                     break;
-                case "O":
-                    let itemO = document.createElement("list");
-                    itemO.innerText = "0";
-                    labelSpace(itemO, i);
-                    list.append(itemO);
-                    break;
-                case "free":
-                    let itemFree = document.createElement("list");
-                    labelSpace(itemFree, i);
-                    itemFree.addEventListener("click", () => {
-                        let currentTurn = displayController.checkTurn();
-                        if (currentTurn == player1.getNumber()) {
-                            symbol = player1.getSymbol();
-                            markSpace(itemFree, symbol);
-                        } else if (currentTurn == player2.getNumber()) {
-                            symbol = player2.getSymbol();
-                            markSpace(itemFree, symbol);
-                        } else {
-                            console.log("error5");
-                        }
-                    })
-                    list.append(itemFree);
+                    case "O":
+                        let itemO = document.createElement("list");
+                        itemO.innerText = "0";
+                        labelSpace(itemO, i);
+                        list.append(itemO);
+                        break;
+                        case "free":
+                            let itemFree = document.createElement("list");
+                            labelSpace(itemFree, i);
+                            itemFree.addEventListener("click", () => {
+                                let currentTurn = displayController.checkTurn();
+                                if (currentTurn == player1.getNumber()) {
+                                    symbol = player1.getSymbol();
+                                    checkSpace(itemFree, symbol);
+                                } else if (currentTurn == player2.getNumber()) {
+                                    symbol = player2.getSymbol();
+                                    checkSpace(itemFree, symbol);
+                                } else {
+                                    console.log("error5");
+                                };
+                            });
+                            
+                            list.append(itemFree);
                     break;
                 default:
                     console.log("error2");
@@ -121,7 +131,6 @@ const displayController = (() => {
         } else {
             playerTurn = 1;
         }
-        console.log(playerTurn);
     }
 
     return {
