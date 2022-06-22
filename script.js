@@ -81,7 +81,7 @@ const gameBoard = (() => {
                     break;
                     case "O":
                         let itemO = document.createElement("list");
-                        itemO.innerText = "0";
+                        itemO.innerText = "O";
                         labelSpace(itemO, i);
                         list.append(itemO);
                         break;
