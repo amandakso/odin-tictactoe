@@ -31,8 +31,9 @@ const gameBoard = (() => {
             item.innerText = symbol;
             item.classList.add(symbol);
             item.classList.add("marked");
-            displayController.changeTurn();
+            displayController.completeTurn();
         }
+
         const checkSpace = (item, symbol) => {
             if (!item.classList.contains("marked")) {
                 markSpace(item, symbol);
@@ -110,6 +111,9 @@ const Player = (name, symbol, number) => {
     return {getName, getSymbol, getNumber};
 }
 
+const player1 = Player("name1", "X", 1);
+const player2 = Player("name2", "O", 2);
+
 const displayController = (() => {
     const initialTurn = 1;
     let playerTurn = initialTurn;
@@ -133,15 +137,56 @@ const displayController = (() => {
         }
     }
 
+    const completeTurn = () => {
+        let currentPlayer;
+        if (playerTurn == player1.getNumber()) {
+            currentPlayer = player1.getName();
+            checkWin(player1.getSymbol(), currentPlayer);
+        } else if (playerTurn == player2.getNumber()) {
+            currentPlayer = player2.getName();
+            checkWin(player2.getSymbol(), currentPlayer);
+        } else {
+            console.log("error6");
+        };
+        changeTurn();
+    }
+
+    const checkWin = (symbol, name) => {
+        let s0 = document.querySelector(".s0").classList.contains(symbol);
+        let s1 = document.querySelector(".s1").classList.contains(symbol);
+        let s2 = document.querySelector(".s2").classList.contains(symbol);
+        let s3 = document.querySelector(".s3").classList.contains(symbol);
+        let s4 = document.querySelector(".s4").classList.contains(symbol);
+        let s5 = document.querySelector(".s5").classList.contains(symbol);
+        let s6 = document.querySelector(".s6").classList.contains(symbol);
+        let s7 = document.querySelector(".s7").classList.contains(symbol);
+        let s8 = document.querySelector(".s8").classList.contains(symbol);
+        
+        // check for wins
+        if ((s0 && s1 && s2) || (s3 && s4 && s5) || (s6 && s7 && s8) || (s0 && s3 && s6) || (s1 && s4 && s7) || (s2 && s5 && s8) || (s0 && s4 && s8) || (s2 && s4 && s6)) {
+            console.log("winner: " + name);
+        }
+        /*
+        win possibilities
+        s0 s1 s2
+        s3 s4 s5
+        s6 s7 s8
+        s0 s3 s6
+        s1 s4 s7
+        s2 s5 s8
+        s0 s4 s8
+        s2 s4 s6
+        */
+    }
+
     return {
         startGame,
         checkTurn,
-        changeTurn,
+        completeTurn,
     }
 
 })();
 
 displayController.startGame();
-const player1 = Player("name1", "X", 1);
-const player2 = Player("name2", "O", 2);
+
 
