@@ -1,5 +1,21 @@
 const gameBoard = (() => {
     const board = ["free", "free", "free", "free", "free", "free", "free", "free", "free"];
+
+    const markSpace = (item, symbol) => {
+        item.innerText = symbol;
+        item.classList.add(symbol);
+        item.classList.add("marked");
+        displayController.completeTurn();
+    }
+
+    const checkSpace = (item, symbol) => {
+        if (!item.classList.contains("marked")) {
+            markSpace(item, symbol);
+        } else {
+            alert("Space already taken. Pick an available space!");
+        }
+    }
+
     const displayBoard = () => {
         const list = document.getElementById("spaces");
         const idLocation = (x) => {
@@ -14,20 +30,7 @@ const gameBoard = (() => {
             };
         };
 
-        const markSpace = (item, symbol) => {
-            item.innerText = symbol;
-            item.classList.add(symbol);
-            item.classList.add("marked");
-            displayController.completeTurn();
-        }
 
-        const checkSpace = (item, symbol) => {
-            if (!item.classList.contains("marked")) {
-                markSpace(item, symbol);
-            } else {
-                alert("Space already taken. Pick an available space!");
-            }
-        }
 
         const labelSpace = (item, num) => {
             item.classList.add(idLocation(num));
@@ -53,6 +56,7 @@ const gameBoard = (() => {
                         case "free":
                             let itemFree = document.createElement("list");
                             labelSpace(itemFree, i);
+                            /*
                             itemFree.addEventListener("click", () => {
                                 let currentTurn = displayController.checkTurn();
                                 if (currentTurn == player1.getNumber()) {
@@ -65,6 +69,7 @@ const gameBoard = (() => {
                                     console.log("error5");
                                 };
                             });
+                            */
                             
                             list.append(itemFree);
                     break;
@@ -74,13 +79,37 @@ const gameBoard = (() => {
 
         }
     }
+
+    const renderBoard = () => {
+        displayBoard();
+        addClick();
+    }
+
+    const addClick = () => {
+        let spaces = document.querySelectorAll(".space");
+        for (const space of spaces) {
+            space.addEventListener("click", () => {
+                let currentTurn = displayController.checkTurn();
+                                if (currentTurn == player1.getNumber()) {
+                                    symbol = player1.getSymbol();
+                                    checkSpace(space, symbol);
+                                } else if (currentTurn == player2.getNumber()) {
+                                    symbol = player2.getSymbol();
+                                    checkSpace(space, symbol);
+                                } else {
+                                    console.log("error5");
+                                };
+                            });
+        }
+    };
+
     return {
-        displayBoard,
+        renderBoard,
     }
 
 })();
 
-gameBoard.displayBoard();
+gameBoard.renderBoard();
 
 const Player = (name, symbol, number) => {
     const getName = () => name;
@@ -103,6 +132,7 @@ const player2 = Player("name2", "O", 2);
 
 const displayController = (() => {
     let freeSpaces = 9;
+    let gameCounter = 0;
     const initialTurn = 1;
     let playerTurn = initialTurn;
 
@@ -146,6 +176,7 @@ const displayController = (() => {
         } else {
             console.log("error6");
         };
+        endGame();
         takeSpace();
         changeTurn();
     }
@@ -153,6 +184,9 @@ const displayController = (() => {
     const checkDraw = () => {
         if (freeSpaces < 2) {
             console.log("it's a draw");
+            gameCounter +=1;
+        } else {
+            gameCounter += 0;
         }
     };
 
@@ -170,6 +204,9 @@ const displayController = (() => {
         // check for wins
         if ((s0 && s1 && s2) || (s3 && s4 && s5) || (s6 && s7 && s8) || (s0 && s3 && s6) || (s1 && s4 && s7) || (s2 && s5 && s8) || (s0 && s4 && s8) || (s2 && s4 && s6)) {
             console.log("winner: " + name);
+            gameCounter += 5;
+        } else {
+            gameCounter +=0;
         };
         /*
         win possibilities
@@ -183,6 +220,19 @@ const displayController = (() => {
         s2 s4 s6
         */
     };
+
+    const endGame = () => {
+        if (gameCounter >= 5) {
+            //end game
+            console.log("winner, end game");
+            console.log(gameCounter);
+        } else if (gameCounter !=0) {
+            console.log("draw, end game");
+            console.log(gameCounter);
+        } else {
+            gameCounter += 0;
+        }
+    }
 
     return {
         startGame,
