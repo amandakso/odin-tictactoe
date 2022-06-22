@@ -221,6 +221,7 @@ const displayController = (() => {
         */
     }
 
+
     const startGame = () => {
         const btn = document.getElementById("start");
         let start = true;
@@ -229,10 +230,14 @@ const displayController = (() => {
                 gameBoard.clearBoard();
                 gameBoard.renderBoard();
                 start = false;
+                btn.innerText = "RESET";
+                btn.style.backgroundColor = "red";
             }
             else {
                 resetGame();
                 start = true;
+                btn.innerText = "START";
+                btn.style.backgroundColor = "green";
             }
         })
         return initialTurn;
