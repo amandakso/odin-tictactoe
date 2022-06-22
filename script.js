@@ -126,16 +126,16 @@ const gameBoard = (() => {
             space.addEventListener("click", () => {
                 let currentTurn = displayController.checkTurn();
                                 if (currentTurn == player1.getNumber()) {
-                                    symbol = player1.getSymbol();
+                                    symbol = player1.symbol;
                                     checkSpace(space, symbol);
                                 } else if (currentTurn == player2.getNumber()) {
-                                    symbol = player2.getSymbol();
+                                    symbol = player2.symbol;
                                     checkSpace(space, symbol);
                                 } else {
                                     console.log("error5");
                                 };
                             });
-        }
+        };
     };
 
     const clearBoard = () => {
@@ -151,11 +151,8 @@ const gameBoard = (() => {
 
 })();
 
-gameBoard.renderBoard();
 
 const Player = (name, symbol, number) => {
-    const getName = () => name;
-    const getSymbol = () => symbol;
     const getNumber = () => {
         if (number == 1) {
             return 1;
@@ -166,8 +163,9 @@ const Player = (name, symbol, number) => {
             console.log("error3");
         };
     };
-    return {getName, getSymbol, getNumber};
-}
+
+    return {getNumber, name, symbol};
+};
 
 const player1 = Player("name1", "X", 1);
 const player2 = Player("name2", "O", 2);
@@ -177,6 +175,38 @@ const displayController = (() => {
     let gameCounter = 0;
     const initialTurn = 1;
     let playerTurn = initialTurn;
+
+    const setUpGame = () => {
+        const changeName = (newName, num) => {
+            if (num == 1) {
+                player1.name = newName;
+                console.log(player1.name);
+                
+            } else if ( num == 2) {
+                player2.name = newName;
+                console.log(player2.name);
+            } else {
+                console.log("hi");
+            }
+            
+        };
+        playerOne = document.getElementById("playerOneName");
+        
+        playerOne.addEventListener("click", () => {
+            newPlayerOne = document.getElementById("input1").value;
+            player1.name = newPlayerOne;
+            console.log(player1.name);
+        });
+        playerTwo = document.getElementById("playerTwoName");
+        
+        playerTwo.addEventListener("click", () => {
+            newPlayerTwo = document.getElementById("input2").value;
+            player2.name = newPlayerTwo;
+            console.log(player2.name);
+        });
+
+    };
+
 
 
     const startGame = () => {
@@ -192,6 +222,7 @@ const displayController = (() => {
             console.log("error4");
         }
     };
+
     const changeTurn = () => {
         if (playerTurn == 1) {
             playerTurn = 2;
@@ -208,12 +239,12 @@ const displayController = (() => {
     const completeTurn = () => {
         let currentPlayer;
         if (playerTurn == player1.getNumber()) {
-            currentPlayer = player1.getName();
-            checkWin(player1.getSymbol(), currentPlayer);
+            currentPlayer = player1.name;
+            checkWin(player1.symbol, currentPlayer);
             checkDraw();
         } else if (playerTurn == player2.getNumber()) {
-            currentPlayer = player2.getName();
-            checkWin(player2.getSymbol(), currentPlayer);
+            currentPlayer = player2.name;
+            checkWin(player2.symbol, currentPlayer);
             checkDraw();
         } else {
             console.log("error6");
@@ -278,16 +309,20 @@ const displayController = (() => {
         } else {
             gameCounter += 0;
         }
-    }
+    };
 
     return {
         startGame,
         checkTurn,
         completeTurn,
+        setUpGame,
     }
 
 })();
 
+gameBoard.renderBoard();
 displayController.startGame();
+displayController.setUpGame();
+
 
 
