@@ -125,10 +125,16 @@ const gameBoard = (() => {
         for (const spot of spots) {
             spot.remove();
         }
-    }
+    };
+
+    const resetBoard = () => {
+        for (let i = 0; i < board.length; i++) {
+            board[i] = "free";
+        };
+    };
 
     return {
-        renderBoard, clearBoard, displayBoard,
+        renderBoard, clearBoard, displayBoard, resetBoard,
     }
 
 })();
@@ -149,8 +155,8 @@ const Player = (name, symbol, number) => {
     return {getNumber, name, symbol};
 };
 
-const player1 = Player("name1", "X", 1);
-const player2 = Player("name2", "O", 2);
+const player1 = Player("Player 1", "X", 1);
+const player2 = Player("Player 2", "O", 2);
 
 const displayController = (() => {
     let freeSpaces = 9;
@@ -189,11 +195,45 @@ const displayController = (() => {
 
     };
 
+    const resetGame = () => {
+            freeSpaces = 9;
+            gameCounter = 0;
+            player1.name = "Player 1";
+            player2.name = "Player 2";
+            player1.symbol = "X";
+            player2.symbol = "O";
+            playerTurn = initialTurn;
+            gameBoard.resetBoard();
+            let message = document.getElementById("message");
+            message.innerText = "Let's Play!";
+            gameBoard.clearBoard();
+            gameBoard.displayBoard();
+
+        /* What needs to be reset:
+            player names
+            symbols
+            marked spaces
+            message
+            playerturn
+            add start Game
+            add set Up game
+            add display board
+        */
+    }
+
     const startGame = () => {
         const btn = document.getElementById("start");
+        let start = true;
         btn.addEventListener("click", () => {
-            gameBoard.clearBoard();
-            gameBoard.renderBoard();
+            if (start) {
+                gameBoard.clearBoard();
+                gameBoard.renderBoard();
+                start = false;
+            }
+            else {
+                resetGame();
+                start = true;
+            }
         })
         return initialTurn;
     };
