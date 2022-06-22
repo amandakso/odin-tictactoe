@@ -103,8 +103,15 @@ const gameBoard = (() => {
         }
     };
 
+    const clearBoard = () => {
+        let spots = document.querySelectorAll(".space");
+        for (const spot of spots) {
+            spot.remove();
+        }
+    }
+
     return {
-        renderBoard,
+        renderBoard, clearBoard,
     }
 
 })();
@@ -225,10 +232,12 @@ const displayController = (() => {
         if (gameCounter >= 5) {
             //end game
             console.log("winner, end game");
-            console.log(gameCounter);
+            gameBoard.clearBoard();
+            
         } else if (gameCounter !=0) {
             console.log("draw, end game");
-            console.log(gameCounter);
+            gameBoard.clearBoard();
+        
         } else {
             gameCounter += 0;
         }
