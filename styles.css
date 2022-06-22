@@ -18,7 +18,7 @@
     border-top: 2px solid black;
 }
 
-.s1, .s4, .s7 {
+#s1, #s4, #s7 {
     border-left: 2px solid black;
     border-right: 2px solid black;
 }

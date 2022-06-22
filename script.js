@@ -5,6 +5,7 @@ const gameBoard = (() => {
         item.innerText = symbol;
         item.classList.add(symbol);
         item.classList.add("marked");
+        updateBoard(item.id, symbol);
         displayController.completeTurn();
     }
 
@@ -15,6 +16,40 @@ const gameBoard = (() => {
             alert("Space already taken. Pick an available space!");
         }
     }
+
+    const updateBoard = (num, symbol) => {
+        switch(num) {
+            case "s0":
+                board[0] = symbol;
+                break;
+            case "s1":
+                board[1] = symbol;
+                break;
+            case "s2":
+                board[2] = symbol;
+                break;
+            case "s3":
+                board[3] = symbol;
+                break;
+            case "s4":
+                board[4] = symbol;
+                break;
+            case "s5":
+                board[5] = symbol;
+                break;
+            case "s6":
+                board[6] = symbol;
+                break;
+            case "s7":
+                board[7] = symbol;
+                break;
+            case "s8":
+                board[8] = symbol;
+                break;
+            default:
+                console.log("error7");        
+        };
+    };
 
     const displayBoard = () => {
         const list = document.getElementById("spaces");
@@ -30,13 +65,13 @@ const gameBoard = (() => {
             };
         };
 
-
-
         const labelSpace = (item, num) => {
             item.classList.add(idLocation(num));
             item.classList.add("space");
-            item.classList.add("s" + num);
+            // item.classList.add("s" + num);
+            item.id = ("s" + num);
         }
+
         
         
         for (let i = 0; i < board.length; i++) {
@@ -111,7 +146,7 @@ const gameBoard = (() => {
     }
 
     return {
-        renderBoard, clearBoard,
+        renderBoard, clearBoard, displayBoard,
     }
 
 })();
@@ -198,15 +233,15 @@ const displayController = (() => {
     };
 
     const checkWin = (symbol, name) => {
-        let s0 = document.querySelector(".s0").classList.contains(symbol);
-        let s1 = document.querySelector(".s1").classList.contains(symbol);
-        let s2 = document.querySelector(".s2").classList.contains(symbol);
-        let s3 = document.querySelector(".s3").classList.contains(symbol);
-        let s4 = document.querySelector(".s4").classList.contains(symbol);
-        let s5 = document.querySelector(".s5").classList.contains(symbol);
-        let s6 = document.querySelector(".s6").classList.contains(symbol);
-        let s7 = document.querySelector(".s7").classList.contains(symbol);
-        let s8 = document.querySelector(".s8").classList.contains(symbol);
+        let s0 = document.querySelector("#s0").classList.contains(symbol);
+        let s1 = document.querySelector("#s1").classList.contains(symbol);
+        let s2 = document.querySelector("#s2").classList.contains(symbol);
+        let s3 = document.querySelector("#s3").classList.contains(symbol);
+        let s4 = document.querySelector("#s4").classList.contains(symbol);
+        let s5 = document.querySelector("#s5").classList.contains(symbol);
+        let s6 = document.querySelector("#s6").classList.contains(symbol);
+        let s7 = document.querySelector("#s7").classList.contains(symbol);
+        let s8 = document.querySelector("#s8").classList.contains(symbol);
         
         // check for wins
         if ((s0 && s1 && s2) || (s3 && s4 && s5) || (s6 && s7 && s8) || (s0 && s3 && s6) || (s1 && s4 && s7) || (s2 && s5 && s8) || (s0 && s4 && s8) || (s2 && s4 && s6)) {
@@ -233,10 +268,12 @@ const displayController = (() => {
             //end game
             console.log("winner, end game");
             gameBoard.clearBoard();
+            gameBoard.displayBoard();
             
         } else if (gameCounter !=0) {
             console.log("draw, end game");
             gameBoard.clearBoard();
+            gameBoard.displayBoard();
         
         } else {
             gameCounter += 0;
