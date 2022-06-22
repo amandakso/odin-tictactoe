@@ -1,3 +1,9 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Coiny', cursive;
+}
+
 .container {
     height: 100vh;
     display: grid;
@@ -11,30 +17,66 @@
 
 .header {
     grid-area: header;
-    display: grid;
-    grid-auto-flow: column;
-    grid-template-columns: 2fr 1fr;
+    display: flex;
+    margin-top: 20px;
+    justify-content: center;
 }
+
+h1 {
+    padding-right: 20px;
+    font-size: 3rem;
+}
+
 
 .player1 {
     grid-area: player1;
+    margin-left: 20px;
 }
 
 .player2 {
     grid-area: player2;
 }
 
+.players {
+    padding: 8px 12px;
+    border-radius: 12px;
+    border: none;
+}
+
+input {
+    padding: 4px 10px;
+    border-radius: 12px;
+    border: none;
+    background-color: grey;
+    margin-bottom: 10px;
+}
+
+#start {
+    padding: 0px 50px;
+    border-radius: 20px;
+    border: none;
+    font-size: 1.5rem;
+
+}
+
 .gameboard {
     grid-area: gameboard;
     display: grid;
+    padding: 30px;
 }
 
 #message {
     grid-area: message;
+    text-align: center;
+    display: grid;
+    align-items: center;
+    font-size: 2rem;
 }
 
 .footer {
     grid-area: footer;
+    justify-self: center;
+    align-self: end;
 }
 
 
@@ -48,6 +90,7 @@
     justify-content: center;
     align-items: center;
     padding: 30px;
+    font-size: 4rem;
 }
 
 .top {
