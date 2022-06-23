@@ -192,6 +192,9 @@ const displayController = (() => {
         
         playerOne.addEventListener("click", () => {
             newPlayerOne = document.getElementById("input1").value;
+            if (newPlayerOne == "") {
+                newPlayerOne = "Player 1";
+            };
             newPlayerOne = truncateString(newPlayerOne);
             player1.name = newPlayerOne;
             console.log(player1.name);
@@ -200,6 +203,9 @@ const displayController = (() => {
         
         playerTwo.addEventListener("click", () => {
             newPlayerTwo = document.getElementById("input2").value;
+            if (newPlayerTwo == "") {
+                newPlayerTwo = "Player 2";
+            };
             newPlayerTwo = truncateString(newPlayerTwo);
             player2.name = newPlayerTwo;
             console.log(player2.name);
