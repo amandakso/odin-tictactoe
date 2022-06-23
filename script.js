@@ -13,7 +13,7 @@ const gameBoard = (() => {
         if (!item.classList.contains("marked")) {
             markSpace(item, symbol);
         } else {
-            alert("Space already taken. Pick an available space!");
+            message.innerText = "Space already taken. Pick an available space!";
         }
     }
 
@@ -162,6 +162,7 @@ const displayController = (() => {
     let freeSpaces = 9;
     let gameCounter = 0;
     const initialTurn = 1;
+    const message = document.getElementById("message");
     let playerTurn = initialTurn;
 
     const setUpGame = () => {
@@ -204,22 +205,10 @@ const displayController = (() => {
             player2.symbol = "O";
             playerTurn = initialTurn;
             gameBoard.resetBoard();
-            let message = document.getElementById("message");
             message.innerText = "Let's Play!";
             gameBoard.clearBoard();
             gameBoard.displayBoard();
-
-        /* What needs to be reset:
-            player names
-            symbols
-            marked spaces
-            message
-            playerturn
-            add start Game
-            add set Up game
-            add display board
-        */
-    }
+    };
 
 
     const startGame = () => {
@@ -232,12 +221,14 @@ const displayController = (() => {
                 start = false;
                 btn.innerText = "RESET";
                 btn.style.backgroundColor = "red";
+                message.innerText = "Let's Play! " + player1.name + " goes first!";
             }
             else {
                 resetGame();
                 start = true;
                 btn.innerText = "START";
                 btn.style.backgroundColor = "green";
+                message.innerText ="Choose Player Names";
             }
         })
         return initialTurn;
@@ -272,10 +263,12 @@ const displayController = (() => {
             currentPlayer = player1.name;
             checkWin(player1.symbol, currentPlayer);
             checkDraw();
+            message.innerText = player2.name + ", it's your turn!";
         } else if (playerTurn == player2.getNumber()) {
             currentPlayer = player2.name;
             checkWin(player2.symbol, currentPlayer);
             checkDraw();
+            message.innerText = player1.name + " ,it's your turn!";
         } else {
             console.log("error6");
         };
@@ -314,7 +307,6 @@ const displayController = (() => {
     };
 
     const displayMessage = (x) => {
-        message = document.getElementById("message");
         switch (x) {
             case 1:
                 message.innerText = player1.name + " Wins!";
