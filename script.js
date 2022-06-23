@@ -179,10 +179,20 @@ const displayController = (() => {
             }
             
         };
+
+        const truncateString = (str) => {
+            if (str.length > 15) {
+                return str.slice(0,15);
+              } else {
+                return str;
+              }
+        };
+
         playerOne = document.getElementById("playerOneName");
         
         playerOne.addEventListener("click", () => {
             newPlayerOne = document.getElementById("input1").value;
+            newPlayerOne = truncateString(newPlayerOne);
             player1.name = newPlayerOne;
             console.log(player1.name);
         });
@@ -190,6 +200,7 @@ const displayController = (() => {
         
         playerTwo.addEventListener("click", () => {
             newPlayerTwo = document.getElementById("input2").value;
+            newPlayerTwo = truncateString(newPlayerTwo);
             player2.name = newPlayerTwo;
             console.log(player2.name);
         });
