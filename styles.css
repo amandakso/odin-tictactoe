@@ -66,6 +66,24 @@ input {
     padding: 30px;
 }
 
+h4 {
+    margin-top: 30px;
+}
+
+.markers {
+    display: grid;
+    grid-template: 1fr 1fr / 1fr 1fr;
+    justify-content: center;
+    align-items: center;
+}
+
+.marker {
+    display: grid;
+    font-size: 4rem;
+    background-color: white;
+    border: none;
+}
+
 #message {
     grid-area: message;
     text-align: center;
