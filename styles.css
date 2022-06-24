@@ -77,12 +77,13 @@ h4 {
     align-items: center;
 }
 
-.marker {
+.marker1, .marker2 {
     display: grid;
     font-size: 4rem;
     background-color: white;
     border: none;
 }
+
 
 #message {
     grid-area: message;

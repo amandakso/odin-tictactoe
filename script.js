@@ -72,28 +72,18 @@ const gameBoard = (() => {
         }
       
         for (let i = 0; i < board.length; i++) {
-            switch (board[i]) {
-                case "X":
-                    let itemX = document.createElement("list");
-                    itemX.innerText = "X";
-                    labelSpace(itemX, i);
-                    list.append(itemX);
-                    break;
-                    case "O":
-                        let itemO = document.createElement("list");
-                        itemO.innerText = "O";
-                        labelSpace(itemO, i);
-                        list.append(itemO);
-                        break;
-                        case "free":
-                            let itemFree = document.createElement("list");
-                            labelSpace(itemFree, i);                         
-                            list.append(itemFree);
-                    break;
-                default:
-                    console.log("error2");
-            }
-
+            if (board[i] == "free"){
+                let itemFree = document.createElement("list");
+                labelSpace(itemFree, i);
+                list.append(itemFree);
+            } else if (board[i].length < 9) {
+                let itemM = document.createElement("list");
+                itemM.innerText = board[i];
+                labelSpace(itemM, i);
+                list.append(itemM);
+            } else {
+                console.log("error emoji");
+            };
         }
     }
 
@@ -211,6 +201,26 @@ const displayController = (() => {
             console.log(player2.name);
         });
 
+        //add marker buttons
+        markers1 = document.querySelectorAll(".marker1");
+        markers1.forEach(marker1 => {
+            marker1.addEventListener("click", () => {
+                player1.symbol = marker1.innerText;
+                let chosen = document.getElementById("chosen1");
+                chosen.innerText = marker1.innerText;
+                
+            });
+        });
+
+        markers2 = document.querySelectorAll(".marker2");
+        markers2.forEach(marker2 => {
+            marker2.addEventListener("click", () => {
+                player2.symbol = marker2.innerText;
+                let chosen = document.getElementById("chosen2");
+                chosen.innerText = marker2.innerText;
+            });
+        });
+
     };
 
     const resetGame = () => {
@@ -225,6 +235,14 @@ const displayController = (() => {
             message.innerText = "Let's Play!";
             gameBoard.clearBoard();
             gameBoard.displayBoard();
+            let marks = document.querySelectorAll(".mark");
+            marks.forEach(mark => {
+                mark.removeAttribute("disabled");
+            });
+            let chosen1 = document.getElementById("chosen1");
+            chosen1.innerText = "X";
+            let chosen2 = document.getElementById("chosen2");
+            chosen2.innerText = "O";
     };
 
 
@@ -239,6 +257,11 @@ const displayController = (() => {
                 btn.innerText = "RESET";
                 btn.style.backgroundColor = "red";
                 message.innerText = "Let's Play! " + player1.name + " goes first!";
+                let marks = document.querySelectorAll(".mark");
+                marks.forEach(mark => {
+                    mark.setAttribute("disabled","");
+                    console.log("disable");
+                })
             }
             else {
                 resetGame();
